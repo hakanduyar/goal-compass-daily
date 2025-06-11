@@ -306,8 +306,7 @@ const Index = () => {
     animation: showAnimations ? {
       animateRotate: true,
       animateScale: true,
-      duration: 1000,
-      easing: 'easeInOutQuart' as const
+      duration: 1000
     } : false
   };
 
@@ -403,45 +402,47 @@ const Index = () => {
       }
     },
     animation: showAnimations ? {
-      duration: 1000,
-      easing: 'easeInOutQuart' as const
+      duration: 1000
     } : false
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/50 to-indigo-50/70 relative overflow-hidden">
-      {/* Subtle Animated Background Elements */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-indigo-50 to-purple-100 relative overflow-hidden">
+      {/* Enhanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-blue-100/20 rounded-full animate-float"></div>
-        <div className="absolute top-1/3 right-10 w-24 h-24 bg-emerald-100/20 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-purple-100/20 rounded-full animate-float" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-blue-400/10 to-indigo-400/10 rounded-full animate-float"></div>
+        <div className="absolute top-1/3 right-10 w-24 h-24 bg-gradient-to-r from-emerald-400/10 to-teal-400/10 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full animate-float" style={{ animationDelay: '2s' }}></div>
       </div>
 
-      <div className="container mx-auto mobile-padding relative z-10">
+      {/* Top Spacing */}
+      <div className="pt-8 sm:pt-12"></div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Enhanced Header */}
-        <div className="text-center mb-8 animate-fade-in">
+        <div className="text-center mb-12 sm:mb-16 animate-fade-in">
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="relative">
-              <Target className="h-12 w-12 text-blue-600 animate-pulse-glow" />
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full animate-bounce"></div>
+              <Target className="h-10 w-10 sm:h-12 sm:w-12 text-indigo-600 animate-pulse-glow" />
+              <div className="absolute -top-1 -right-1 w-3 h-3 sm:w-4 sm:h-4 bg-emerald-500 rounded-full animate-bounce"></div>
             </div>
-            <h1 className="mobile-heading font-bold bg-gradient-to-r from-blue-600 via-emerald-600 to-purple-600 bg-clip-text text-transparent animate-gradient font-['Poppins']">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-700 bg-clip-text text-transparent animate-gradient font-['Poppins']">
               Program Takip Panelim
             </h1>
           </div>
-          <p className="mobile-text text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg lg:text-xl text-slate-700 max-w-3xl mx-auto leading-relaxed px-4">
             🎯 Spor, Bootcamp ve hedeflerinizi sistematik olarak takip edin ve gelişiminizi görselleştirin.
           </p>
           
           {/* Real-time Clock and Streak */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
-            <div className="flex items-center gap-2 bg-white/70 backdrop-blur-sm rounded-full px-4 py-2 border border-blue-200/50 shadow-sm">
-              <Clock className="h-4 w-4 text-blue-600" />
-              <span className="text-sm font-medium text-gray-700">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 border border-indigo-200/50 shadow-lg">
+              <Clock className="h-4 w-4 text-indigo-700" />
+              <span className="text-sm font-medium text-slate-800">
                 {currentTime.toLocaleTimeString('tr-TR')}
               </span>
             </div>
-            <div className="flex items-center gap-2 bg-gradient-to-r from-emerald-400 to-teal-500 text-white rounded-full px-4 py-2 shadow-lg">
+            <div className="flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-full px-4 py-2 shadow-lg">
               <Zap className="h-4 w-4" />
               <span className="text-sm font-bold">
                 {progressStreak} günlük seri! 🔥
@@ -451,17 +452,17 @@ const Index = () => {
         </div>
 
         {/* Enhanced Control Panel */}
-        <div className="mb-8 animate-slide-up">
-          <Card className="bg-white/80 backdrop-blur-sm border border-gray-200/50 shadow-lg hover-lift">
+        <div className="mb-10 sm:mb-12 animate-slide-up">
+          <Card className="bg-white/90 backdrop-blur-sm border border-slate-200/60 shadow-xl hover-lift">
             <CardContent className="p-6">
               <div className="flex flex-wrap items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto">
                   <div className="flex items-center gap-2">
-                    <Filter className="h-4 w-4 text-gray-600" />
+                    <Filter className="h-4 w-4 text-slate-700" />
                     <select 
                       value={filterCompleted} 
                       onChange={(e) => setFilterCompleted(e.target.value as any)}
-                      className="bg-white/90 border border-gray-200 rounded-lg px-3 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
+                      className="bg-white/95 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent shadow-sm"
                     >
                       <option value="all">Tümü</option>
                       <option value="completed">Tamamlanan</option>
@@ -471,24 +472,24 @@ const Index = () => {
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => setViewMode(viewMode === 'grid' ? 'list' : 'grid')}
-                      className="flex items-center gap-2 bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-1 rounded-lg transition-colors border border-blue-200/50"
+                      className="flex items-center gap-2 bg-indigo-100 hover:bg-indigo-200 text-indigo-800 px-3 py-2 rounded-lg transition-colors border border-indigo-300/50 shadow-sm"
                     >
                       <BarChart3 className="h-4 w-4" />
                       <span className="text-sm">{viewMode === 'grid' ? 'Liste' : 'Grid'}</span>
                     </button>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full sm:w-auto">
                   <button
                     onClick={() => setShowAnimations(!showAnimations)}
-                    className="flex items-center gap-2 bg-purple-50 hover:bg-purple-100 text-purple-700 px-3 py-1 rounded-lg transition-colors border border-purple-200/50"
+                    className="flex items-center gap-2 bg-purple-100 hover:bg-purple-200 text-purple-800 px-3 py-2 rounded-lg transition-colors border border-purple-300/50 shadow-sm w-full sm:w-auto justify-center sm:justify-start"
                   >
                     {showAnimations ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
                     <span className="text-sm">Animasyonlar</span>
                   </button>
                   <button
                     onClick={() => setShowMotivation(!showMotivation)}
-                    className="flex items-center gap-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-3 py-1 rounded-lg transition-colors border border-emerald-200/50"
+                    className="flex items-center gap-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 px-3 py-2 rounded-lg transition-colors border border-emerald-300/50 shadow-sm w-full sm:w-auto justify-center sm:justify-start"
                   >
                     <Star className="h-4 w-4" />
                     <span className="text-sm">Motivasyon</span>
@@ -501,9 +502,9 @@ const Index = () => {
 
         {/* Motivational Message */}
         {showMotivation && (
-          <div className="mb-8 animate-bounce-in">
-            <div className="bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 text-white p-4 rounded-2xl shadow-lg text-center border border-orange-300/50">
-              <p className="font-semibold mobile-text">
+          <div className="mb-10 sm:mb-12 animate-bounce-in px-4 sm:px-0">
+            <div className="bg-gradient-to-r from-amber-500 via-orange-600 to-red-600 text-white p-6 rounded-2xl shadow-xl text-center border border-orange-400/50 mx-auto max-w-4xl">
+              <p className="font-semibold text-base sm:text-lg">
                 {getMotivationalMessage()}
               </p>
             </div>
@@ -511,17 +512,17 @@ const Index = () => {
         )}
 
         {/* Info Card */}
-        <Card className="mb-8 border border-blue-200/50 bg-gradient-to-br from-blue-50/90 to-indigo-50/90 backdrop-blur-sm animate-scale-in shadow-lg hover-lift">
+        <Card className="mb-10 sm:mb-12 border border-indigo-300/60 bg-gradient-to-br from-indigo-50/95 to-purple-50/95 backdrop-blur-sm animate-scale-in shadow-xl hover-lift mx-4 sm:mx-0">
           <CardHeader>
-            <CardTitle className="flex items-center gap-3 text-blue-700">
-              <div className="p-2 bg-blue-100/80 rounded-lg border border-blue-200/50">
+            <CardTitle className="flex items-center gap-3 text-indigo-800">
+              <div className="p-2 bg-indigo-200/80 rounded-lg border border-indigo-300/50">
                 <Info className="h-5 w-5" />
               </div>
-              <span className="font-['Poppins']">Uygulama Nasıl Kullanılır?</span>
+              <span className="font-['Poppins'] text-lg">Uygulama Nasıl Kullanılır?</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-700 leading-relaxed mobile-text">
+            <p className="text-slate-800 leading-relaxed text-sm sm:text-base">
               Bu interaktif panel, günlük spor, bootcamp dersleri ve TransferPlus aktivitelerinizi takip etmenize yardımcı olur. 
               Aşağıdaki tabloda her aktivitenin yanındaki "Yapıldı" kutucuklarını işaretleyerek ilerlemenizi kaydedebilirsiniz. 
               Bootcamp ve spor için sol taraftaki genel ilerleme grafiklerini takip edebilir, TransferPlus için ise çalışma 
@@ -530,51 +531,51 @@ const Index = () => {
           </CardContent>
         </Card>
 
-        <div className={`dashboard-grid mb-8`}>
+        <div className={`grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-10 sm:mb-12 px-4 sm:px-0`}>
           {/* Charts Section */}
-          <div className="space-y-6">
+          <div className="lg:col-span-2 space-y-6 lg:space-y-8">
             {/* Progress Charts */}
-            <Card className="shadow-lg border border-emerald-200/50 bg-white/85 backdrop-blur-sm hover-lift animate-scale-in">
+            <Card className="shadow-xl border border-slate-300/60 bg-white/95 backdrop-blur-sm hover-lift animate-scale-in">
               <CardHeader>
-                <CardTitle className="flex items-center gap-3 font-['Poppins']">
-                  <div className="p-2 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-lg shadow-sm">
+                <CardTitle className="flex items-center gap-3 font-['Poppins'] text-slate-800">
+                  <div className="p-2 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-lg shadow-sm">
                     <TrendingUp className="h-5 w-5 text-white" />
                   </div>
                   Genel İlerleme
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
                   <div className="text-center">
-                    <h3 className="text-sm font-semibold text-gray-600 mb-4 font-['Poppins']">Bootcamp Tamamlandı</h3>
-                    <div className="relative chart-mini mx-auto mb-4">
+                    <h3 className="text-sm font-semibold text-slate-700 mb-4 font-['Poppins']">Bootcamp Tamamlandı</h3>
+                    <div className="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 mx-auto mb-4">
                       <Doughnut data={bootcampChartData} options={chartOptions} />
                       <div className="absolute inset-0 flex flex-col items-center justify-center">
-                        <span className="text-2xl lg:text-3xl font-bold text-emerald-600 font-['Poppins']">
+                        <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-emerald-700 font-['Poppins']">
                           {stats.bootcamp.percentage.toFixed(1)}%
                         </span>
-                        <CheckCircle2 className="h-4 w-4 text-emerald-500 mt-1" />
+                        <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 text-emerald-600 mt-1" />
                       </div>
                     </div>
-                    <div className="bg-emerald-50/80 rounded-lg p-3 border border-emerald-200/50">
-                      <p className="text-xs text-emerald-700 font-medium">
+                    <div className="bg-emerald-100/90 rounded-lg p-3 border border-emerald-300/60 shadow-sm">
+                      <p className="text-xs text-emerald-800 font-medium">
                         {stats.bootcamp.completed.toFixed(1)} / {stats.bootcamp.total.toFixed(1)} saat
                       </p>
                     </div>
                   </div>
                   <div className="text-center">
-                    <h3 className="text-sm font-semibold text-gray-600 mb-4 font-['Poppins']">Spor Tamamlandı</h3>
-                    <div className="relative chart-mini mx-auto mb-4">
+                    <h3 className="text-sm font-semibold text-slate-700 mb-4 font-['Poppins']">Spor Tamamlandı</h3>
+                    <div className="relative w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 mx-auto mb-4">
                       <Doughnut data={sportChartData} options={chartOptions} />
                       <div className="absolute inset-0 flex flex-col items-center justify-center">
-                        <span className="text-2xl lg:text-3xl font-bold text-blue-600 font-['Poppins']">
+                        <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-700 font-['Poppins']">
                           {stats.sport.percentage.toFixed(1)}%
                         </span>
-                        <Activity className="h-4 w-4 text-blue-500 mt-1" />
+                        <Activity className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600 mt-1" />
                       </div>
                     </div>
-                    <div className="bg-blue-50/80 rounded-lg p-3 border border-blue-200/50">
-                      <p className="text-xs text-blue-700 font-medium">
+                    <div className="bg-blue-100/90 rounded-lg p-3 border border-blue-300/60 shadow-sm">
+                      <p className="text-xs text-blue-800 font-medium">
                         {stats.sport.completed} / {stats.sport.total} gün
                       </p>
                     </div>
@@ -583,52 +584,33 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            {/* Daily Notes */}
-            <Card className="shadow-lg border border-amber-200/50 bg-gradient-to-br from-amber-50/90 to-orange-50/90 backdrop-blur-sm hover-lift animate-scale-in">
+            {/* Program Table */}
+            <Card className="shadow-xl border border-slate-300/60 bg-white/95 backdrop-blur-sm hover-lift animate-slide-up">
               <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-orange-700 font-['Poppins']">
-                  <div className="p-2 bg-amber-100/80 rounded-lg border border-amber-200/50">
-                    <Calendar className="h-5 w-5" />
+                <CardTitle className="flex flex-col sm:flex-row sm:items-center gap-3 font-['Poppins'] text-slate-800">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-gradient-to-r from-slate-500 to-slate-700 rounded-lg shadow-sm">
+                      <Activity className="h-5 w-5 text-white" />
+                    </div>
+                    Program Detayları
                   </div>
-                  Günlük Not
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="bg-white/70 rounded-lg p-4 border border-amber-200/50">
-                  <p className="text-gray-700 italic leading-relaxed min-h-[60px] mobile-text">
-                    {selectedDayNote}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Program Table */}
-          <div>
-            <Card className="shadow-lg border border-indigo-200/50 bg-white/85 backdrop-blur-sm hover-lift animate-slide-up">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3 font-['Poppins']">
-                  <div className="p-2 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-lg shadow-sm">
-                    <Activity className="h-5 w-5 text-white" />
-                  </div>
-                  Program Detayları
-                  <span className="ml-auto text-sm bg-indigo-50 text-indigo-700 px-2 py-1 rounded-full border border-indigo-200/50">
+                  <span className="text-sm bg-slate-100 text-slate-800 px-3 py-1 rounded-full border border-slate-300/60 shadow-sm">
                     {filteredData.length} gün
                   </span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-0">
-                <div className="overflow-x-auto max-h-[600px] rounded-lg">
-                  <table className="w-full text-sm mobile-table">
-                    <thead className="bg-gradient-to-r from-gray-50/90 to-slate-50/90 border-b sticky top-0 z-10 backdrop-blur-sm">
+                <div className="overflow-x-auto max-h-[500px] lg:max-h-[600px] rounded-lg">
+                  <table className="w-full text-xs sm:text-sm">
+                    <thead className="bg-gradient-to-r from-slate-100/95 to-slate-50/95 border-b sticky top-0 z-10 backdrop-blur-sm">
                       <tr>
-                        <th className="text-left p-3 font-semibold text-gray-700 font-['Poppins']">Tarih</th>
-                        <th className="text-left p-3 font-semibold text-gray-700 font-['Poppins']">Spor</th>
-                        <th className="text-center p-3 font-semibold text-gray-700">✓</th>
-                        <th className="text-left p-3 font-semibold text-gray-700 font-['Poppins']">Bootcamp</th>
-                        <th className="text-center p-3 font-semibold text-gray-700">✓</th>
-                        <th className="text-left p-3 font-semibold text-gray-700 font-['Poppins']">TransferPlus</th>
-                        <th className="text-center p-3 font-semibold text-gray-700">✓</th>
+                        <th className="text-left p-2 sm:p-3 font-semibold text-slate-800 font-['Poppins']">Tarih</th>
+                        <th className="text-left p-2 sm:p-3 font-semibold text-slate-800 font-['Poppins']">Spor</th>
+                        <th className="text-center p-2 sm:p-3 font-semibold text-slate-800">✓</th>
+                        <th className="text-left p-2 sm:p-3 font-semibold text-slate-800 font-['Poppins']">Bootcamp</th>
+                        <th className="text-center p-2 sm:p-3 font-semibold text-slate-800">✓</th>
+                        <th className="text-left p-2 sm:p-3 font-semibold text-slate-800 font-['Poppins']">TransferPlus</th>
+                        <th className="text-center p-2 sm:p-3 font-semibold text-slate-800">✓</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -638,31 +620,31 @@ const Index = () => {
                         const isSunday = day.bootcamp === 'Yok' && day.sport === 'Yok' && !isHoliday;
                         const isSelected = selectedDay === originalIndex;
                         const rowClass = isHoliday 
-                          ? 'bg-gradient-to-r from-orange-50/80 to-amber-50/80 border-l-4 border-orange-300/50' 
+                          ? 'bg-gradient-to-r from-orange-100/90 to-amber-100/90 border-l-4 border-orange-400/60' 
                           : isSunday 
-                          ? 'bg-gradient-to-r from-gray-50/80 to-slate-50/80 border-l-4 border-gray-300/50' 
+                          ? 'bg-gradient-to-r from-slate-100/90 to-gray-100/90 border-l-4 border-slate-400/60' 
                           : isSelected
-                          ? 'bg-gradient-to-r from-indigo-50/80 to-blue-50/80 border-l-4 border-indigo-400/50'
-                          : 'bg-white/80 hover:bg-gradient-to-r hover:from-blue-50/60 hover:to-indigo-50/60 transition-all duration-300';
+                          ? 'bg-gradient-to-r from-indigo-100/90 to-purple-100/90 border-l-4 border-indigo-500/60'
+                          : 'bg-white/90 hover:bg-gradient-to-r hover:from-blue-50/80 hover:to-indigo-50/80 transition-all duration-300';
 
                         return (
                           <tr 
                             key={originalIndex}
                             data-day-index={originalIndex}
-                            className={`${rowClass} border-b border-gray-100/50 cursor-pointer interactive-card`}
+                            className={`${rowClass} border-b border-slate-200/50 cursor-pointer interactive-card`}
                             onClick={() => {
                               setSelectedDayNote(day.note || 'Bu gün için özel bir not bulunmamaktadır.');
                               setSelectedDay(originalIndex);
                             }}
                           >
-                            <td className="p-3 font-medium text-gray-900 font-['Poppins']">
+                            <td className="p-2 sm:p-3 font-medium text-slate-900 font-['Poppins']">
                               <div className="flex items-center gap-2">
                                 {day.date}
-                                {isSelected && <Star className="h-3 w-3 text-amber-500" />}
+                                {isSelected && <Star className="h-3 w-3 text-amber-600" />}
                               </div>
                             </td>
-                            <td className="p-3 text-gray-700">{day.sport}</td>
-                            <td className="p-3 text-center">
+                            <td className="p-2 sm:p-3 text-slate-800">{day.sport}</td>
+                            <td className="p-2 sm:p-3 text-center">
                               {day.sport !== 'Yok' && day.sport !== 'Tatil' && day.sport !== '-' ? (
                                 <input
                                   type="checkbox"
@@ -671,14 +653,14 @@ const Index = () => {
                                     e.stopPropagation();
                                     updateProgramData(originalIndex, 'sportDone', e.target.checked);
                                   }}
-                                  className="w-5 h-5 text-blue-600 bg-white border-2 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 transition-all duration-200 hover:scale-110"
+                                  className="w-4 h-4 sm:w-5 sm:h-5 text-blue-700 bg-white border-2 border-slate-400 rounded focus:ring-blue-600 focus:ring-2 transition-all duration-200 hover:scale-110"
                                 />
                               ) : (
-                                <span className="text-gray-400">—</span>
+                                <span className="text-slate-400">—</span>
                               )}
                             </td>
-                            <td className="p-3 text-gray-700">{day.bootcamp}</td>
-                            <td className="p-3 text-center">
+                            <td className="p-2 sm:p-3 text-slate-800">{day.bootcamp}</td>
+                            <td className="p-2 sm:p-3 text-center">
                               {day.bootcamp !== 'Yok' && day.bootcamp !== '-' && day.bootcamp !== 'Tatil' ? (
                                 <input
                                   type="checkbox"
@@ -687,15 +669,15 @@ const Index = () => {
                                     e.stopPropagation();
                                     updateProgramData(originalIndex, 'bootcampDone', e.target.checked);
                                   }}
-                                  className="w-5 h-5 text-emerald-600 bg-white border-2 border-gray-300 rounded focus:ring-emerald-500 focus:ring-2 transition-all duration-200 hover:scale-110"
+                                  className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-700 bg-white border-2 border-slate-400 rounded focus:ring-emerald-600 focus:ring-2 transition-all duration-200 hover:scale-110"
                                 />
                               ) : (
-                                <span className="text-gray-400">—</span>
+                                <span className="text-slate-400">—</span>
                               )}
                             </td>
-                            <td className="p-3">
+                            <td className="p-2 sm:p-3">
                               {day.transferPlus === 'Tatil' ? (
-                                <span className="text-gray-400 italic">Tatil</span>
+                                <span className="text-slate-500 italic text-xs">Tatil</span>
                               ) : (
                                 <input
                                   type="number"
@@ -705,14 +687,14 @@ const Index = () => {
                                     e.stopPropagation();
                                     updateProgramData(originalIndex, 'transferPlusValue', e.target.value ? parseFloat(e.target.value) : null);
                                   }}
-                                  className="w-20 px-2 py-1 text-sm border-2 border-gray-200 rounded-lg focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 hover:border-orange-300 bg-white/90"
+                                  className="w-16 sm:w-20 px-1 sm:px-2 py-1 text-xs sm:text-sm border-2 border-slate-300 rounded-lg focus:ring-orange-600 focus:border-orange-600 transition-all duration-200 hover:border-orange-400 bg-white/95"
                                   placeholder="0"
                                 />
                               )}
                             </td>
-                            <td className="p-3 text-center">
+                            <td className="p-2 sm:p-3 text-center">
                               {day.transferPlus === 'Tatil' ? (
-                                <span className="text-gray-400">—</span>
+                                <span className="text-slate-400">—</span>
                               ) : (
                                 <input
                                   type="checkbox"
@@ -721,7 +703,7 @@ const Index = () => {
                                     e.stopPropagation();
                                     updateProgramData(originalIndex, 'transferPlusDone', e.target.checked);
                                   }}
-                                  className="w-5 h-5 text-orange-600 bg-white border-2 border-gray-300 rounded focus:ring-orange-500 focus:ring-2 transition-all duration-200 hover:scale-110"
+                                  className="w-4 h-4 sm:w-5 sm:h-5 text-orange-700 bg-white border-2 border-slate-400 rounded focus:ring-orange-600 focus:ring-2 transition-all duration-200 hover:scale-110"
                                 />
                               )}
                             </td>
@@ -734,51 +716,74 @@ const Index = () => {
               </CardContent>
             </Card>
           </div>
+
+          {/* Daily Notes */}
+          <div>
+            <Card className="shadow-xl border border-amber-300/60 bg-gradient-to-br from-amber-50/95 to-orange-50/95 backdrop-blur-sm hover-lift animate-scale-in">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3 text-orange-800 font-['Poppins']">
+                  <div className="p-2 bg-amber-200/80 rounded-lg border border-amber-300/60">
+                    <Calendar className="h-5 w-5" />
+                  </div>
+                  Günlük Not
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="bg-white/80 rounded-lg p-4 border border-amber-300/60 shadow-sm">
+                  <p className="text-slate-800 italic leading-relaxed min-h-[80px] sm:min-h-[120px] text-sm sm:text-base flex items-center justify-center text-center">
+                    {selectedDayNote}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
 
         {/* TransferPlus Trend Chart */}
-        <Card className="shadow-lg border border-orange-200/50 bg-white/85 backdrop-blur-sm hover-lift animate-scale-in">
+        <Card className="shadow-xl border border-orange-300/60 bg-white/95 backdrop-blur-sm hover-lift animate-scale-in mb-10 sm:mb-12 mx-4 sm:mx-0">
           <CardHeader>
-            <CardTitle className="flex items-center gap-3 text-center font-['Poppins']">
-              <div className="p-2 bg-gradient-to-r from-orange-400 to-pink-500 rounded-lg shadow-sm">
-                <Award className="h-5 w-5 text-white" />
+            <CardTitle className="flex flex-col sm:flex-row sm:items-center gap-3 text-center font-['Poppins'] text-slate-800">
+              <div className="flex items-center gap-3 justify-center sm:justify-start">
+                <div className="p-2 bg-gradient-to-r from-orange-500 to-pink-600 rounded-lg shadow-sm">
+                  <Award className="h-5 w-5 text-white" />
+                </div>
+                TransferPlus Çalışma Saatleri Trendi
               </div>
-              TransferPlus Çalışma Saatleri Trendi
-              <div className="ml-auto flex items-center gap-2 text-sm bg-orange-50 text-orange-700 px-3 py-1 rounded-full border border-orange-200/50">
+              <div className="flex items-center gap-2 text-sm bg-orange-100 text-orange-800 px-3 py-1 rounded-full border border-orange-300/60 shadow-sm justify-center sm:justify-start">
                 <Clock className="h-3 w-3" />
                 {stats.transferPlus.total.toFixed(1)} saat
               </div>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="chart-container">
+            <div className="h-48 sm:h-56 lg:h-64">
               <Line data={transferPlusChartData} options={lineChartOptions} />
             </div>
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="bg-orange-50/80 rounded-lg p-4 text-center border border-orange-200/50">
-                <div className="text-2xl font-bold text-orange-600 font-['Poppins']">
+              <div className="bg-orange-100/90 rounded-lg p-4 text-center border border-orange-300/60 shadow-sm">
+                <div className="text-xl sm:text-2xl font-bold text-orange-700 font-['Poppins']">
                   {stats.transferPlus.total.toFixed(1)}
                 </div>
-                <div className="text-sm text-orange-700">Toplam Saat</div>
+                <div className="text-sm text-orange-800">Toplam Saat</div>
               </div>
-              <div className="bg-blue-50/80 rounded-lg p-4 text-center border border-blue-200/50">
-                <div className="text-2xl font-bold text-blue-600 font-['Poppins']">
+              <div className="bg-blue-100/90 rounded-lg p-4 text-center border border-blue-300/60 shadow-sm">
+                <div className="text-xl sm:text-2xl font-bold text-blue-700 font-['Poppins']">
                   {(stats.transferPlus.total / Math.max(1, programData.filter(d => d.transferPlusValue !== null && d.transferPlusValue > 0).length)).toFixed(1)}
                 </div>
-                <div className="text-sm text-blue-700">Ortalama/Gün</div>
+                <div className="text-sm text-blue-800">Ortalama/Gün</div>
               </div>
-              <div className="bg-emerald-50/80 rounded-lg p-4 text-center border border-emerald-200/50">
-                <div className="text-2xl font-bold text-emerald-600 font-['Poppins']">
+              <div className="bg-emerald-100/90 rounded-lg p-4 text-center border border-emerald-300/60 shadow-sm">
+                <div className="text-xl sm:text-2xl font-bold text-emerald-700 font-['Poppins']">
                   {Math.max(...programData.map(d => d.transferPlusValue || 0)).toFixed(1)}
                 </div>
-                <div className="text-sm text-emerald-700">En Yüksek</div>
+                <div className="text-sm text-emerald-800">En Yüksek</div>
               </div>
             </div>
           </CardContent>
         </Card>
 
         {/* Footer */}
-        <div className="mt-12 text-center text-gray-500 text-sm">
+        <div className="mt-12 sm:mt-16 text-center text-slate-600 text-sm pb-8 sm:pb-12">
           <p className="animate-fade-in">
             🚀 Başarıya giden yolda her adım önemli! Devam et! 💪
           </p>
@@ -789,3 +794,5 @@ const Index = () => {
 };
 
 export default Index;
+
+</initial_code>
