@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement, Filler } from 'chart.js';
 import { Doughnut, Line } from 'react-chartjs-2';
@@ -308,7 +307,7 @@ const Index = () => {
       animateRotate: true,
       animateScale: true,
       duration: 1000,
-      easing: 'easeInOutQuart'
+      easing: 'easeInOutQuart' as const
     } : false
   };
 
@@ -405,28 +404,28 @@ const Index = () => {
     },
     animation: showAnimations ? {
       duration: 1000,
-      easing: 'easeInOutQuart'
+      easing: 'easeInOutQuart' as const
     } : false
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
-      {/* Animated Background Elements */}
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/50 to-indigo-50/70 relative overflow-hidden">
+      {/* Subtle Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-blue-200/30 rounded-full animate-float"></div>
-        <div className="absolute top-1/3 right-10 w-24 h-24 bg-purple-200/30 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-green-200/30 rounded-full animate-float" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-10 left-10 w-32 h-32 bg-blue-100/20 rounded-full animate-float"></div>
+        <div className="absolute top-1/3 right-10 w-24 h-24 bg-emerald-100/20 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-purple-100/20 rounded-full animate-float" style={{ animationDelay: '2s' }}></div>
       </div>
 
       <div className="container mx-auto mobile-padding relative z-10">
-        {/* Header with Enhanced Design */}
+        {/* Enhanced Header */}
         <div className="text-center mb-8 animate-fade-in">
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="relative">
               <Target className="h-12 w-12 text-blue-600 animate-pulse-glow" />
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full animate-bounce"></div>
+              <div className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full animate-bounce"></div>
             </div>
-            <h1 className="mobile-heading font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent animate-gradient font-['Poppins']">
+            <h1 className="mobile-heading font-bold bg-gradient-to-r from-blue-600 via-emerald-600 to-purple-600 bg-clip-text text-transparent animate-gradient font-['Poppins']">
               Program Takip Panelim
             </h1>
           </div>
@@ -436,13 +435,13 @@ const Index = () => {
           
           {/* Real-time Clock and Streak */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
-            <div className="flex items-center gap-2 bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 border border-white/30">
+            <div className="flex items-center gap-2 bg-white/70 backdrop-blur-sm rounded-full px-4 py-2 border border-blue-200/50 shadow-sm">
               <Clock className="h-4 w-4 text-blue-600" />
               <span className="text-sm font-medium text-gray-700">
                 {currentTime.toLocaleTimeString('tr-TR')}
               </span>
             </div>
-            <div className="flex items-center gap-2 bg-gradient-to-r from-orange-400 to-red-500 text-white rounded-full px-4 py-2 shadow-lg">
+            <div className="flex items-center gap-2 bg-gradient-to-r from-emerald-400 to-teal-500 text-white rounded-full px-4 py-2 shadow-lg">
               <Zap className="h-4 w-4" />
               <span className="text-sm font-bold">
                 {progressStreak} günlük seri! 🔥
@@ -451,9 +450,9 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Control Panel */}
+        {/* Enhanced Control Panel */}
         <div className="mb-8 animate-slide-up">
-          <Card className="glass-effect border-0 shadow-xl hover-lift">
+          <Card className="bg-white/80 backdrop-blur-sm border border-gray-200/50 shadow-lg hover-lift">
             <CardContent className="p-6">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
@@ -462,7 +461,7 @@ const Index = () => {
                     <select 
                       value={filterCompleted} 
                       onChange={(e) => setFilterCompleted(e.target.value as any)}
-                      className="bg-white/80 border border-gray-200 rounded-lg px-3 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="bg-white/90 border border-gray-200 rounded-lg px-3 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
                     >
                       <option value="all">Tümü</option>
                       <option value="completed">Tamamlanan</option>
@@ -472,7 +471,7 @@ const Index = () => {
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => setViewMode(viewMode === 'grid' ? 'list' : 'grid')}
-                      className="flex items-center gap-2 bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-1 rounded-lg transition-colors"
+                      className="flex items-center gap-2 bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-1 rounded-lg transition-colors border border-blue-200/50"
                     >
                       <BarChart3 className="h-4 w-4" />
                       <span className="text-sm">{viewMode === 'grid' ? 'Liste' : 'Grid'}</span>
@@ -482,14 +481,14 @@ const Index = () => {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setShowAnimations(!showAnimations)}
-                    className="flex items-center gap-2 bg-purple-100 hover:bg-purple-200 text-purple-700 px-3 py-1 rounded-lg transition-colors"
+                    className="flex items-center gap-2 bg-purple-50 hover:bg-purple-100 text-purple-700 px-3 py-1 rounded-lg transition-colors border border-purple-200/50"
                   >
                     {showAnimations ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
                     <span className="text-sm">Animasyonlar</span>
                   </button>
                   <button
                     onClick={() => setShowMotivation(!showMotivation)}
-                    className="flex items-center gap-2 bg-green-100 hover:bg-green-200 text-green-700 px-3 py-1 rounded-lg transition-colors"
+                    className="flex items-center gap-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-3 py-1 rounded-lg transition-colors border border-emerald-200/50"
                   >
                     <Star className="h-4 w-4" />
                     <span className="text-sm">Motivasyon</span>
@@ -503,7 +502,7 @@ const Index = () => {
         {/* Motivational Message */}
         {showMotivation && (
           <div className="mb-8 animate-bounce-in">
-            <div className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white p-4 rounded-2xl shadow-xl text-center">
+            <div className="bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 text-white p-4 rounded-2xl shadow-lg text-center border border-orange-300/50">
               <p className="font-semibold mobile-text">
                 {getMotivationalMessage()}
               </p>
@@ -511,11 +510,11 @@ const Index = () => {
           </div>
         )}
 
-        {/* Info Card with Enhanced Design */}
-        <Card className="mb-8 border-0 bg-gradient-to-r from-blue-50/80 to-emerald-50/80 glass-effect animate-scale-in shadow-xl hover-lift">
+        {/* Info Card */}
+        <Card className="mb-8 border border-blue-200/50 bg-gradient-to-br from-blue-50/90 to-indigo-50/90 backdrop-blur-sm animate-scale-in shadow-lg hover-lift">
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-blue-700">
-              <div className="p-2 bg-blue-100 rounded-lg">
+              <div className="p-2 bg-blue-100/80 rounded-lg border border-blue-200/50">
                 <Info className="h-5 w-5" />
               </div>
               <span className="font-['Poppins']">Uygulama Nasıl Kullanılır?</span>
@@ -532,13 +531,13 @@ const Index = () => {
         </Card>
 
         <div className={`dashboard-grid mb-8`}>
-          {/* Charts Section with Enhanced Design */}
+          {/* Charts Section */}
           <div className="space-y-6">
             {/* Progress Charts */}
-            <Card className="shadow-2xl border-0 glass-effect hover-lift animate-scale-in hover-glow">
+            <Card className="shadow-lg border border-emerald-200/50 bg-white/85 backdrop-blur-sm hover-lift animate-scale-in">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 font-['Poppins']">
-                  <div className="p-2 bg-gradient-to-r from-emerald-400 to-blue-500 rounded-lg">
+                  <div className="p-2 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-lg shadow-sm">
                     <TrendingUp className="h-5 w-5 text-white" />
                   </div>
                   Genel İlerleme
@@ -557,7 +556,7 @@ const Index = () => {
                         <CheckCircle2 className="h-4 w-4 text-emerald-500 mt-1" />
                       </div>
                     </div>
-                    <div className="bg-emerald-50 rounded-lg p-3 border border-emerald-200">
+                    <div className="bg-emerald-50/80 rounded-lg p-3 border border-emerald-200/50">
                       <p className="text-xs text-emerald-700 font-medium">
                         {stats.bootcamp.completed.toFixed(1)} / {stats.bootcamp.total.toFixed(1)} saat
                       </p>
@@ -574,7 +573,7 @@ const Index = () => {
                         <Activity className="h-4 w-4 text-blue-500 mt-1" />
                       </div>
                     </div>
-                    <div className="bg-blue-50 rounded-lg p-3 border border-blue-200">
+                    <div className="bg-blue-50/80 rounded-lg p-3 border border-blue-200/50">
                       <p className="text-xs text-blue-700 font-medium">
                         {stats.sport.completed} / {stats.sport.total} gün
                       </p>
@@ -584,18 +583,18 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            {/* Daily Notes with Enhanced Design */}
-            <Card className="shadow-2xl border-0 bg-gradient-to-br from-orange-50 to-red-50 glass-effect hover-lift animate-scale-in">
+            {/* Daily Notes */}
+            <Card className="shadow-lg border border-amber-200/50 bg-gradient-to-br from-amber-50/90 to-orange-50/90 backdrop-blur-sm hover-lift animate-scale-in">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-orange-700 font-['Poppins']">
-                  <div className="p-2 bg-orange-100 rounded-lg">
+                  <div className="p-2 bg-amber-100/80 rounded-lg border border-amber-200/50">
                     <Calendar className="h-5 w-5" />
                   </div>
                   Günlük Not
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="bg-white/60 rounded-lg p-4 border border-orange-200">
+                <div className="bg-white/70 rounded-lg p-4 border border-amber-200/50">
                   <p className="text-gray-700 italic leading-relaxed min-h-[60px] mobile-text">
                     {selectedDayNote}
                   </p>
@@ -604,16 +603,16 @@ const Index = () => {
             </Card>
           </div>
 
-          {/* Program Table with Enhanced Design */}
+          {/* Program Table */}
           <div>
-            <Card className="shadow-2xl border-0 glass-effect hover-lift animate-slide-up">
+            <Card className="shadow-lg border border-indigo-200/50 bg-white/85 backdrop-blur-sm hover-lift animate-slide-up">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 font-['Poppins']">
-                  <div className="p-2 bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg">
+                  <div className="p-2 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-lg shadow-sm">
                     <Activity className="h-5 w-5 text-white" />
                   </div>
                   Program Detayları
-                  <span className="ml-auto text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
+                  <span className="ml-auto text-sm bg-indigo-50 text-indigo-700 px-2 py-1 rounded-full border border-indigo-200/50">
                     {filteredData.length} gün
                   </span>
                 </CardTitle>
@@ -621,7 +620,7 @@ const Index = () => {
               <CardContent className="p-0">
                 <div className="overflow-x-auto max-h-[600px] rounded-lg">
                   <table className="w-full text-sm mobile-table">
-                    <thead className="bg-gradient-to-r from-gray-50 to-gray-100 border-b sticky top-0 z-10">
+                    <thead className="bg-gradient-to-r from-gray-50/90 to-slate-50/90 border-b sticky top-0 z-10 backdrop-blur-sm">
                       <tr>
                         <th className="text-left p-3 font-semibold text-gray-700 font-['Poppins']">Tarih</th>
                         <th className="text-left p-3 font-semibold text-gray-700 font-['Poppins']">Spor</th>
@@ -639,18 +638,18 @@ const Index = () => {
                         const isSunday = day.bootcamp === 'Yok' && day.sport === 'Yok' && !isHoliday;
                         const isSelected = selectedDay === originalIndex;
                         const rowClass = isHoliday 
-                          ? 'bg-gradient-to-r from-orange-50 to-yellow-50 border-l-4 border-orange-200' 
+                          ? 'bg-gradient-to-r from-orange-50/80 to-amber-50/80 border-l-4 border-orange-300/50' 
                           : isSunday 
-                          ? 'bg-gradient-to-r from-gray-50 to-slate-50 border-l-4 border-gray-200' 
+                          ? 'bg-gradient-to-r from-gray-50/80 to-slate-50/80 border-l-4 border-gray-300/50' 
                           : isSelected
-                          ? 'bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-300'
-                          : 'bg-white hover:bg-gradient-to-r hover:from-blue-50/50 hover:to-indigo-50/50 transition-all duration-300';
+                          ? 'bg-gradient-to-r from-indigo-50/80 to-blue-50/80 border-l-4 border-indigo-400/50'
+                          : 'bg-white/80 hover:bg-gradient-to-r hover:from-blue-50/60 hover:to-indigo-50/60 transition-all duration-300';
 
                         return (
                           <tr 
                             key={originalIndex}
                             data-day-index={originalIndex}
-                            className={`${rowClass} border-b cursor-pointer interactive-card`}
+                            className={`${rowClass} border-b border-gray-100/50 cursor-pointer interactive-card`}
                             onClick={() => {
                               setSelectedDayNote(day.note || 'Bu gün için özel bir not bulunmamaktadır.');
                               setSelectedDay(originalIndex);
@@ -659,7 +658,7 @@ const Index = () => {
                             <td className="p-3 font-medium text-gray-900 font-['Poppins']">
                               <div className="flex items-center gap-2">
                                 {day.date}
-                                {isSelected && <Star className="h-3 w-3 text-yellow-500" />}
+                                {isSelected && <Star className="h-3 w-3 text-amber-500" />}
                               </div>
                             </td>
                             <td className="p-3 text-gray-700">{day.sport}</td>
@@ -706,7 +705,7 @@ const Index = () => {
                                     e.stopPropagation();
                                     updateProgramData(originalIndex, 'transferPlusValue', e.target.value ? parseFloat(e.target.value) : null);
                                   }}
-                                  className="w-20 px-2 py-1 text-sm border-2 border-gray-200 rounded-lg focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 hover:border-orange-300 bg-white"
+                                  className="w-20 px-2 py-1 text-sm border-2 border-gray-200 rounded-lg focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 hover:border-orange-300 bg-white/90"
                                   placeholder="0"
                                 />
                               )}
@@ -737,15 +736,15 @@ const Index = () => {
           </div>
         </div>
 
-        {/* TransferPlus Trend Chart with Enhanced Design */}
-        <Card className="shadow-2xl border-0 glass-effect hover-lift animate-scale-in hover-glow">
+        {/* TransferPlus Trend Chart */}
+        <Card className="shadow-lg border border-orange-200/50 bg-white/85 backdrop-blur-sm hover-lift animate-scale-in">
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-center font-['Poppins']">
-              <div className="p-2 bg-gradient-to-r from-orange-400 to-red-500 rounded-lg">
+              <div className="p-2 bg-gradient-to-r from-orange-400 to-pink-500 rounded-lg shadow-sm">
                 <Award className="h-5 w-5 text-white" />
               </div>
               TransferPlus Çalışma Saatleri Trendi
-              <div className="ml-auto flex items-center gap-2 text-sm bg-orange-100 text-orange-700 px-3 py-1 rounded-full">
+              <div className="ml-auto flex items-center gap-2 text-sm bg-orange-50 text-orange-700 px-3 py-1 rounded-full border border-orange-200/50">
                 <Clock className="h-3 w-3" />
                 {stats.transferPlus.total.toFixed(1)} saat
               </div>
@@ -756,23 +755,23 @@ const Index = () => {
               <Line data={transferPlusChartData} options={lineChartOptions} />
             </div>
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="bg-orange-50 rounded-lg p-4 text-center border border-orange-200">
+              <div className="bg-orange-50/80 rounded-lg p-4 text-center border border-orange-200/50">
                 <div className="text-2xl font-bold text-orange-600 font-['Poppins']">
                   {stats.transferPlus.total.toFixed(1)}
                 </div>
                 <div className="text-sm text-orange-700">Toplam Saat</div>
               </div>
-              <div className="bg-blue-50 rounded-lg p-4 text-center border border-blue-200">
+              <div className="bg-blue-50/80 rounded-lg p-4 text-center border border-blue-200/50">
                 <div className="text-2xl font-bold text-blue-600 font-['Poppins']">
                   {(stats.transferPlus.total / Math.max(1, programData.filter(d => d.transferPlusValue !== null && d.transferPlusValue > 0).length)).toFixed(1)}
                 </div>
                 <div className="text-sm text-blue-700">Ortalama/Gün</div>
               </div>
-              <div className="bg-green-50 rounded-lg p-4 text-center border border-green-200">
-                <div className="text-2xl font-bold text-green-600 font-['Poppins']">
+              <div className="bg-emerald-50/80 rounded-lg p-4 text-center border border-emerald-200/50">
+                <div className="text-2xl font-bold text-emerald-600 font-['Poppins']">
                   {Math.max(...programData.map(d => d.transferPlusValue || 0)).toFixed(1)}
                 </div>
-                <div className="text-sm text-green-700">En Yüksek</div>
+                <div className="text-sm text-emerald-700">En Yüksek</div>
               </div>
             </div>
           </CardContent>
