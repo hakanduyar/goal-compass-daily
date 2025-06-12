@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement, Filler } from 'chart.js';
 import { Line } from 'react-chartjs-2';
@@ -357,7 +356,8 @@ const Index = () => {
       }
     },
     animation: showAnimations ? {
-      duration: 1000
+      duration: 1000,
+      easing: 'easeInOutQuart' as const
     } : false
   };
 
