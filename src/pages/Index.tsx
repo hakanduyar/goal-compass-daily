@@ -131,34 +131,41 @@ const Index = () => {
           continue;
         }
 
-        const bootcampEndDate = new Date('2025-06-29T00:00:00'); // 1 gün ileriye kaydırıldı
-        if (currentDay <= bootcampEndDate) {
-          if (bootcampLessonAssignedCount < bootcampLessons.length) {
-            if (dayOfWeek !== 0) {
-              programEntry.bootcamp = bootcampLessons[bootcampLessonAssignedCount];
-              bootcampLessonAssignedCount++;
-            }
-          } else {
-            programEntry.bootcamp = '-';
-          }
+        // 11 Haziran'a Hafta3 Ödev ekle
+        if (turkDate === '11 Haz') {
+          programEntry.bootcamp = 'Hafta3 Ödev';
+        } else if (turkDate === '12 Haz') {
+          programEntry.bootcamp = 'Hafta3 Ödev';
         } else {
-          programEntry.bootcamp = '-';
+          // Bootcamp derslerini 13 Haziran'dan başlat (2 gün kaydırıldı)
+          const bootcampStartDate = new Date('2025-06-13T00:00:00');
+          const bootcampEndDate = new Date('2025-07-02T00:00:00');
+          
+          if (currentDay >= bootcampStartDate && currentDay <= bootcampEndDate) {
+            if (dayOfWeek !== 0) { // Pazar değilse
+              if (bootcampLessonAssignedCount < bootcampLessons.length) {
+                programEntry.bootcamp = bootcampLessons[bootcampLessonAssignedCount];
+                bootcampLessonAssignedCount++;
+              }
+            }
+          }
         }
 
-        // Yeni spor programı
+        // Spor programı
         if (dayOfWeek === 0) {
           programEntry.sport = 'Yok';
           if (!programEntry.note) programEntry.note = '🏖️ Pazar günü, spor dışındaki diğer programlar devam ediyor.';
         } else {
-          // 11 Haziran - 14 Haziran arası özel program
+          // 11 Haziran (Pazartesi) ve 13 Haziran (Çarşamba) - Kardiyo-Mobilite
           if (turkDate === '11 Haz' || turkDate === '13 Haz') {
-            // 11 Haziran (Pazartesi) ve 13 Haziran (Çarşamba) - Kardiyo-Mobilite
             programEntry.sport = 'Kardiyo-Mobilite';
-          } else if (turkDate === '12 Haz' || turkDate === '14 Haz') {
-            // 12 Haziran (Salı) ve 14 Haziran (Perşembe) - Ağırlık Antrenmanı
+          } 
+          // 12 Haziran (Salı) ve 14 Haziran (Perşembe) - Ağırlık Antrenmanı
+          else if (turkDate === '12 Haz' || turkDate === '14 Haz') {
             programEntry.sport = 'Ağırlık Antrenmanı';
-          } else if (currentDay > new Date('2025-06-15T00:00:00')) {
-            // 15 Haziran sonrası normal program
+          } 
+          // 15 Haziran sonrası normal program
+          else if (currentDay > new Date('2025-06-15T00:00:00')) {
             if (dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 5) {
               // Pazartesi, Çarşamba, Cuma - Ağırlık Antrenmanı
               programEntry.sport = 'Ağırlık Antrenmanı';
@@ -174,7 +181,7 @@ const Index = () => {
         if (!programEntry.note) {
           if (turkDate === '11 Haz') {
             programEntry.note = '🚀 Programın ilk günü! Disiplinli ve motive bir başlangıç yapın.';
-          } else if (turkDate === '29 Haz' && programEntry.bootcamp === '-') {
+          } else if (turkDate === '2 Tem' && programEntry.bootcamp === '-') {
             programEntry.note = '🎓 Bugün bootcamp derslerinin son günü! Tebrikler!';
           } else if (bootcampLessonAssignedCount === bootcampLessons.length) {
             programEntry.note = '✨ Tüm bootcamp dersleri tamamlandı. Başarılar dileriz!';
@@ -356,8 +363,7 @@ const Index = () => {
       }
     },
     animation: showAnimations ? {
-      duration: 1000,
-      easing: 'easeInOutQuart' as const
+      duration: 1000
     } : false
   };
 
