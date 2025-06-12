@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement, Filler } from 'chart.js';
 import { Info } from 'lucide-react';
@@ -128,25 +127,24 @@ const Index = () => {
           </CardContent>
         </Card>
 
-        <div className={`grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 mb-12 sm:mb-16 px-4 sm:px-0`}>
-          {/* Charts Section */}
-          <div className="lg:col-span-2 space-y-8 lg:space-y-10">
-            {/* Progress Charts Component */}
-            <ProgressCharts stats={stats} chartOptions={chartOptions} />
-
-            {/* Program Table Component */}
-            <ProgramTable
-              filteredData={filteredData}
-              programData={programData}
-              selectedDay={selectedDay}
-              showAnimations={showAnimations}
-              onUpdateProgramData={updateProgramData}
-              onSelectDay={handleSelectDay}
-            />
-          </div>
-
-          {/* Daily Notes Component */}
+        {/* Daily Notes Component - moved here and made compact */}
+        <div className="mb-12 sm:mb-16 px-4 sm:px-0">
           <DailyNotes selectedDayNote={selectedDayNote} />
+        </div>
+
+        <div className="space-y-8 lg:space-y-10 mb-12 sm:mb-16 px-4 sm:px-0">
+          {/* Progress Charts Component */}
+          <ProgressCharts stats={stats} chartOptions={chartOptions} />
+
+          {/* Program Table Component */}
+          <ProgramTable
+            filteredData={filteredData}
+            programData={programData}
+            selectedDay={selectedDay}
+            showAnimations={showAnimations}
+            onUpdateProgramData={updateProgramData}
+            onSelectDay={handleSelectDay}
+          />
         </div>
 
         {/* TransferPlus Trend Chart Component */}
