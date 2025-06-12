@@ -313,7 +313,7 @@ const Index = () => {
       animateScale: true,
       duration: 1000
     } : false
-  };
+  } as const;
 
   const transferPlusChartData = {
     labels: programData.map(d => d.date),
@@ -365,7 +365,7 @@ const Index = () => {
     animation: showAnimations ? {
       duration: 1000
     } : false
-  };
+  } as const;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900 relative overflow-hidden">
