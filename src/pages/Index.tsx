@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement, Filler } from 'chart.js';
 import { Line } from 'react-chartjs-2';
@@ -94,7 +95,7 @@ const Index = () => {
       const data: ProgramDay[] = [];
 
       const bootcampLessons = [
-        'Ders 4 (6 saat)', 'Ders 4 (3 saat) + Ders 5 (3 saat)', 'Ders 5 (6 saat)', 'Ders 5 (1 saat) + Ders 6 (5 saat)',
+        'Hafta3 Ödev', 'Ders 4 (6 saat)', 'Ders 4 (3 saat) + Ders 5 (3 saat)', 'Ders 5 (6 saat)', 'Ders 5 (1 saat) + Ders 6 (5 saat)',
         'Ders 6 (6 saat)', 'Ders 7 (2 saat 40 dk) + Ders 8 (3 saat 20 dk)', 'Ders 8 (2 saat 0 dk) + Ders 9 (1 saat 15 dk)',
         'Ders 10 (2 saat)', 'Ders 11 (2 saat)', 'Ders 12 (3 saat)', 'Ders 13 (3 saat)', 'Ders 14 (3 saat)',
         'Ders 15 (3 saat)', 'Ders 16 (2 saat)', 'Ders 17 (2 saat)', 'Ders 18 (1 saat 44 dk)', 'Ders 19 (1 saat 17 dk)',
@@ -109,7 +110,6 @@ const Index = () => {
         
         const turkDate = getTurkishDate(currentDay);
         const dayOfWeek = getDayOfWeek(currentDay);
-        const currentWeekNum = Math.floor(dayOffset / 7) + 1;
 
         let programEntry: ProgramDay = {
           date: turkDate,
@@ -132,7 +132,7 @@ const Index = () => {
           continue;
         }
 
-        const bootcampEndDate = new Date('2025-06-28T00:00:00');
+        const bootcampEndDate = new Date('2025-06-29T00:00:00'); // 1 gün ileriye kaydırıldı
         if (currentDay <= bootcampEndDate) {
           if (bootcampLessonAssignedCount < bootcampLessons.length) {
             if (dayOfWeek !== 0) {
@@ -146,18 +146,27 @@ const Index = () => {
           programEntry.bootcamp = '-';
         }
 
+        // Yeni spor programı
         if (dayOfWeek === 0) {
           programEntry.sport = 'Yok';
           if (!programEntry.note) programEntry.note = '🏖️ Pazar günü, spor dışındaki diğer programlar devam ediyor.';
-        } else if (currentWeekNum === 1) {
-          if (dayOfWeek === 3 || dayOfWeek === 5) {
-            programEntry.sport = 'Kardiyo-Mobilite';
-          } else {
-            programEntry.sport = '-';
-          }
         } else {
-          if (dayOfWeek === 2 || dayOfWeek === 4 || dayOfWeek === 6) {
+          // 11 Haziran - 14 Haziran arası özel program
+          if (turkDate === '11 Haz' || turkDate === '13 Haz') {
+            // 11 Haziran (Pazartesi) ve 13 Haziran (Çarşamba) - Kardiyo-Mobilite
             programEntry.sport = 'Kardiyo-Mobilite';
+          } else if (turkDate === '12 Haz' || turkDate === '14 Haz') {
+            // 12 Haziran (Salı) ve 14 Haziran (Perşembe) - Ağırlık Antrenmanı
+            programEntry.sport = 'Ağırlık Antrenmanı';
+          } else if (currentDay > new Date('2025-06-15T00:00:00')) {
+            // 15 Haziran sonrası normal program
+            if (dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 5) {
+              // Pazartesi, Çarşamba, Cuma - Ağırlık Antrenmanı
+              programEntry.sport = 'Ağırlık Antrenmanı';
+            } else if (dayOfWeek === 2 || dayOfWeek === 4 || dayOfWeek === 6) {
+              // Salı, Perşembe, Cumartesi - Kardiyo-Mobilite
+              programEntry.sport = 'Kardiyo-Mobilite';
+            }
           } else {
             programEntry.sport = '-';
           }
@@ -166,7 +175,7 @@ const Index = () => {
         if (!programEntry.note) {
           if (turkDate === '11 Haz') {
             programEntry.note = '🚀 Programın ilk günü! Disiplinli ve motive bir başlangıç yapın.';
-          } else if (turkDate === '28 Haz' && programEntry.bootcamp === '-') {
+          } else if (turkDate === '29 Haz' && programEntry.bootcamp === '-') {
             programEntry.note = '🎓 Bugün bootcamp derslerinin son günü! Tebrikler!';
           } else if (bootcampLessonAssignedCount === bootcampLessons.length) {
             programEntry.note = '✨ Tüm bootcamp dersleri tamamlandı. Başarılar dileriz!';
