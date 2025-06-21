@@ -67,15 +67,6 @@ export const initializeProgramData = (): ProgramDay[] => {
       note: ''
     };
 
-    if (turkDate === '25 Haz') {
-      programEntry.bootcamp = 'Tatil';
-      programEntry.sport = 'Tatil';
-      programEntry.transferPlus = 'Tatil';
-      programEntry.note = '🎉 25 Haziran, programdaki özel tatil gününüz! Tamamen dinlenin ve rahatlayın.';
-      data.push(programEntry);
-      continue;
-    }
-
     // 21 ve 22 Haziran'a Hafta3 Ödev ekle
     if (turkDate === '21 Haz' || turkDate === '22 Haz') {
       programEntry.bootcamp = 'Hafta3 Ödev';
