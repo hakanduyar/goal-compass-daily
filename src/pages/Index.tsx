@@ -17,6 +17,9 @@ import {
   getMotivationalMessage 
 } from '@/utils/programData';
 import { createChartOptions } from '@/utils/chartConfig';
+import { useOfflineSync } from '@/hooks/useOfflineSync';
+import { StorageManager } from '@/utils/storage';
+import NetworkStatus from '@/components/NetworkStatus';
 
 ChartJS.register(ArcElement, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement, Filler);
 
@@ -30,6 +33,7 @@ const Index = () => {
   const [showMotivation, setShowMotivation] = useState(true);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [progressStreak, setProgressStreak] = useState(0);
+  const { saveData } = useOfflineSync();
 
   // Real-time clock
   useEffect(() => {
@@ -38,22 +42,62 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    const data = initializeProgramData();
-    setProgramData(data);
-    setSelectedDayNote(data[0]?.note || 'Programı takip etmek için bir gün seçin.');
-    setProgressStreak(calculateStreak(data));
-  }, []);
+    const initializeData = async () => {
+      try {
+        // Önce yerel veriyi yüklemeye çalış
+        const localData = await StorageManager.loadProgramData();
+        
+        if (localData && localData.length > 0) {
+          console.log('Loading data from local storage');
+          setProgramData(localData);
+          setSelectedDayNote(localData[0]?.note || 'Programı takip etmek için bir gün seçin.');
+          setProgressStreak(calculateStreak(localData));
+        } else {
+          // Yerel veri yoksa varsayılan veriyi oluştur ve kaydet
+          console.log('No local data found, initializing default data');
+          const data = initializeProgramData();
+          setProgramData(data);
+          setSelectedDayNote(data[0]?.note || 'Programı takip etmek için bir gün seçin.');
+          setProgressStreak(calculateStreak(data));
+          
+          // Varsayılan veriyi yerel olarak kaydet
+          await saveData(data);
+        }
+      } catch (error) {
+        console.error('Error initializing data:', error);
+        // Hata durumunda varsayılan veriyi kullan
+        const data = initializeProgramData();
+        setProgramData(data);
+        setSelectedDayNote(data[0]?.note || 'Programı takip etmek için bir gün seçin.');
+        setProgressStreak(calculateStreak(data));
+      }
+    };
+
+    initializeData();
+  }, [saveData]);
 
   useEffect(() => {
     setProgressStreak(calculateStreak(programData));
   }, [programData]);
 
-  const updateProgramData = (index: number, field: keyof ProgramDay, value: any) => {
-    const newData = [...programData];
-    newData[index] = { ...newData[index], [field]: value };
-    setProgramData(newData);
-    setSelectedDayNote(newData[index].note || 'Bu gün için özel bir not bulunmamaktadır.');
-    setSelectedDay(index);
+  const updateProgramData = async (index: number, field: keyof ProgramDay, value: any) => {
+    try {
+      const newData = [...programData];
+      newData[index] = { ...newData[index], [field]: value };
+      
+      // State'i güncelle
+      setProgramData(newData);
+      setSelectedDayNote(newData[index].note || 'Bu gün için özel bir not bulunmamaktadır.');
+      setSelectedDay(index);
+
+      // Offline destekli kaydetme
+      await saveData(newData, index, 'update');
+      console.log('Data updated and saved:', { index, field, value });
+    } catch (error) {
+      console.error('Error updating program data:', error);
+      // Hata durumunda kullanıcıya bildir ama state değişikliğini koru
+      // TODO: Toast notification eklenebilir
+    }
   };
 
   const handleSelectDay = (index: number, note: string) => {
@@ -78,6 +122,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900 relative overflow-hidden">
+      {/* Network Status Indicator */}
+      <NetworkStatus />
+
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-full animate-float blur-xl"></div>
