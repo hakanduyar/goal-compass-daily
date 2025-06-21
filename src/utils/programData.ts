@@ -37,7 +37,7 @@ export const parseHours = (text: string) => {
 };
 
 export const initializeProgramData = (): ProgramDay[] => {
-  const startDate = new Date('2025-06-11T00:00:00');
+  const startDate = new Date('2025-06-21T00:00:00');
   const data: ProgramDay[] = [];
 
   const bootcampLessons = [
@@ -69,22 +69,22 @@ export const initializeProgramData = (): ProgramDay[] => {
       note: ''
     };
 
-    if (turkDate === '15 Haz') {
+    if (turkDate === '25 Haz') {
       programEntry.bootcamp = 'Tatil';
       programEntry.sport = 'Tatil';
       programEntry.transferPlus = 'Tatil';
-      programEntry.note = '🎉 15 Haziran, programdaki özel tatil gününüz! Tamamen dinlenin ve rahatlayın.';
+      programEntry.note = '🎉 25 Haziran, programdaki özel tatil gününüz! Tamamen dinlenin ve rahatlayın.';
       data.push(programEntry);
       continue;
     }
 
-    // 11 ve 12 Haziran'a Hafta3 Ödev ekle
-    if (turkDate === '11 Haz' || turkDate === '12 Haz') {
+    // 21 ve 22 Haziran'a Hafta3 Ödev ekle
+    if (turkDate === '21 Haz' || turkDate === '22 Haz') {
       programEntry.bootcamp = 'Hafta3 Ödev';
     } else {
-      // Bootcamp derslerini 13 Haziran'dan başlat
-      const bootcampStartDate = new Date('2025-06-13T00:00:00');
-      const bootcampEndDate = new Date('2025-07-02T00:00:00');
+      // Bootcamp derslerini 23 Haziran'dan başlat
+      const bootcampStartDate = new Date('2025-06-23T00:00:00');
+      const bootcampEndDate = new Date('2025-07-12T00:00:00');
       
       if (currentDay >= bootcampStartDate && currentDay <= bootcampEndDate) {
         if (dayOfWeek !== 0) { // Pazar değilse
@@ -101,16 +101,20 @@ export const initializeProgramData = (): ProgramDay[] => {
       programEntry.sport = 'Yok';
       if (!programEntry.note) programEntry.note = '🏖️ Pazar günü, spor dışındaki diğer programlar devam ediyor.';
     } else {
-      // 11 Haziran (Pazartesi) ve 13 Haziran (Çarşamba) - Kardiyo-Mobilite
-      if (turkDate === '11 Haz' || turkDate === '13 Haz') {
+      // 21 Haziran (Cumartesi) ve 23 Haziran (Pazartesi) - Kardiyo-Mobilite
+      if (turkDate === '21 Haz' || turkDate === '23 Haz') {
         programEntry.sport = 'Kardiyo-Mobilite';
       } 
-      // 12 Haziran (Salı) ve 14 Haziran (Perşembe) - Ağırlık Antrenmanı
-      else if (turkDate === '12 Haz' || turkDate === '14 Haz') {
+      // 22 Haziran (Pazar) - Yok (Pazar günü)
+      else if (turkDate === '22 Haz') {
+        programEntry.sport = 'Yok';
+      }
+      // 24 Haziran (Salı) - Ağırlık Antrenmanı
+      else if (turkDate === '24 Haz') {
         programEntry.sport = 'Ağırlık Antrenmanı';
       } 
-      // 15 Haziran sonrası normal program
-      else if (currentDay > new Date('2025-06-15T00:00:00')) {
+      // 25 Haziran sonrası normal program
+      else if (currentDay > new Date('2025-06-25T00:00:00')) {
         if (dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 5) {
           // Pazartesi, Çarşamba, Cuma - Ağırlık Antrenmanı
           programEntry.sport = 'Ağırlık Antrenmanı';
@@ -124,9 +128,9 @@ export const initializeProgramData = (): ProgramDay[] => {
     }
     
     if (!programEntry.note) {
-      if (turkDate === '11 Haz') {
+      if (turkDate === '21 Haz') {
         programEntry.note = '🚀 Programın ilk günü! Disiplinli ve motive bir başlangıç yapın.';
-      } else if (turkDate === '2 Tem' && programEntry.bootcamp === '-') {
+      } else if (turkDate === '12 Tem' && programEntry.bootcamp === '-') {
         programEntry.note = '🎓 Bugün bootcamp derslerinin son günü! Tebrikler!';
       } else if (bootcampLessonAssignedCount === bootcampLessons.length) {
         programEntry.note = '✨ Tüm bootcamp dersleri tamamlandı. Başarılar dileriz!';
