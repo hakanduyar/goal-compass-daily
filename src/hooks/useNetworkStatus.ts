@@ -1,32 +1,41 @@
 
 import { useState, useEffect } from 'react';
-import NetInfo from '@react-native-community/netinfo';
 
 export type NetworkStatus = 'online' | 'offline' | 'unknown';
 
 export const useNetworkStatus = () => {
-  const [isConnected, setIsConnected] = useState<boolean | null>(null);
-  const [networkStatus, setNetworkStatus] = useState<NetworkStatus>('unknown');
+  const [isConnected, setIsConnected] = useState<boolean | null>(
+    navigator.onLine ? true : false
+  );
+  const [networkStatus, setNetworkStatus] = useState<NetworkStatus>(
+    navigator.onLine ? 'online' : 'offline'
+  );
 
   useEffect(() => {
-    // İlk durumu kontrol et
-    NetInfo.fetch().then(state => {
-      const connected = state.isConnected && state.isInternetReachable;
-      setIsConnected(connected);
-      setNetworkStatus(connected ? 'online' : 'offline');
-      console.log('Initial network status:', connected ? 'online' : 'offline');
-    });
+    const handleOnline = () => {
+      setIsConnected(true);
+      setNetworkStatus('online');
+      console.log('Network status changed: online');
+    };
 
-    // Network değişikliklerini dinle
-    const unsubscribe = NetInfo.addEventListener(state => {
-      const connected = state.isConnected && state.isInternetReachable;
-      setIsConnected(connected);
-      setNetworkStatus(connected ? 'online' : 'offline');
-      console.log('Network status changed:', connected ? 'online' : 'offline');
-    });
+    const handleOffline = () => {
+      setIsConnected(false);
+      setNetworkStatus('offline');
+      console.log('Network status changed: offline');
+    };
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    // İlk durumu kontrol et
+    const connected = navigator.onLine;
+    setIsConnected(connected);
+    setNetworkStatus(connected ? 'online' : 'offline');
+    console.log('Initial network status:', connected ? 'online' : 'offline');
 
     return () => {
-      unsubscribe();
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
     };
   }, []);
 

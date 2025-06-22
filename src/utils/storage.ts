@@ -1,5 +1,4 @@
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ProgramDay } from './programData';
 
 const STORAGE_KEYS = {
@@ -21,7 +20,7 @@ export class StorageManager {
   static async saveProgramData(data: ProgramDay[]): Promise<void> {
     try {
       const jsonData = JSON.stringify(data);
-      await AsyncStorage.setItem(STORAGE_KEYS.PROGRAM_DATA, jsonData);
+      localStorage.setItem(STORAGE_KEYS.PROGRAM_DATA, jsonData);
       console.log('Program data saved locally:', data.length, 'items');
     } catch (error) {
       console.error('Error saving program data:', error);
@@ -32,7 +31,7 @@ export class StorageManager {
   // Program verilerini yerel olarak yükle
   static async loadProgramData(): Promise<ProgramDay[] | null> {
     try {
-      const jsonData = await AsyncStorage.getItem(STORAGE_KEYS.PROGRAM_DATA);
+      const jsonData = localStorage.getItem(STORAGE_KEYS.PROGRAM_DATA);
       if (jsonData) {
         const data = JSON.parse(jsonData);
         console.log('Program data loaded locally:', data.length, 'items');
@@ -50,7 +49,7 @@ export class StorageManager {
     try {
       const existing = await this.getPendingSync();
       const updated = [...existing, item];
-      await AsyncStorage.setItem(STORAGE_KEYS.PENDING_SYNC, JSON.stringify(updated));
+      localStorage.setItem(STORAGE_KEYS.PENDING_SYNC, JSON.stringify(updated));
       console.log('Added pending sync item:', item);
     } catch (error) {
       console.error('Error adding pending sync:', error);
@@ -60,7 +59,7 @@ export class StorageManager {
   // Senkronizasyon bekleyen öğeleri getir
   static async getPendingSync(): Promise<PendingSyncItem[]> {
     try {
-      const jsonData = await AsyncStorage.getItem(STORAGE_KEYS.PENDING_SYNC);
+      const jsonData = localStorage.getItem(STORAGE_KEYS.PENDING_SYNC);
       return jsonData ? JSON.parse(jsonData) : [];
     } catch (error) {
       console.error('Error getting pending sync:', error);
@@ -71,7 +70,7 @@ export class StorageManager {
   // Senkronizasyon bekleyen öğeleri temizle
   static async clearPendingSync(): Promise<void> {
     try {
-      await AsyncStorage.setItem(STORAGE_KEYS.PENDING_SYNC, JSON.stringify([]));
+      localStorage.setItem(STORAGE_KEYS.PENDING_SYNC, JSON.stringify([]));
       console.log('Pending sync cleared');
     } catch (error) {
       console.error('Error clearing pending sync:', error);
@@ -81,7 +80,7 @@ export class StorageManager {
   // Son senkronizasyon zamanını kaydet
   static async setLastSync(timestamp: number): Promise<void> {
     try {
-      await AsyncStorage.setItem(STORAGE_KEYS.LAST_SYNC, timestamp.toString());
+      localStorage.setItem(STORAGE_KEYS.LAST_SYNC, timestamp.toString());
     } catch (error) {
       console.error('Error setting last sync:', error);
     }
@@ -90,7 +89,7 @@ export class StorageManager {
   // Son senkronizasyon zamanını getir
   static async getLastSync(): Promise<number | null> {
     try {
-      const timestamp = await AsyncStorage.getItem(STORAGE_KEYS.LAST_SYNC);
+      const timestamp = localStorage.getItem(STORAGE_KEYS.LAST_SYNC);
       return timestamp ? parseInt(timestamp) : null;
     } catch (error) {
       console.error('Error getting last sync:', error);
@@ -101,11 +100,9 @@ export class StorageManager {
   // Tüm verileri temizle (debug için)
   static async clearAll(): Promise<void> {
     try {
-      await AsyncStorage.multiRemove([
-        STORAGE_KEYS.PROGRAM_DATA,
-        STORAGE_KEYS.PENDING_SYNC,
-        STORAGE_KEYS.LAST_SYNC
-      ]);
+      localStorage.removeItem(STORAGE_KEYS.PROGRAM_DATA);
+      localStorage.removeItem(STORAGE_KEYS.PENDING_SYNC);
+      localStorage.removeItem(STORAGE_KEYS.LAST_SYNC);
       console.log('All storage cleared');
     } catch (error) {
       console.error('Error clearing storage:', error);
